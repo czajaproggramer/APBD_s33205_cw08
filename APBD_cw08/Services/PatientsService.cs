@@ -1,4 +1,5 @@
 using APBD_cw08.DTOs;
+using APBD_cw08.Exceptions;
 using APBD_cw08.Models;
 using APBD_cw08.Repos;
 
@@ -32,7 +33,7 @@ public class PatientsService
         bool bedTypeExists = await _repo.BedTypeExistsByName(bedDto.BedType);
         if (!bedTypeExists)
         {
-            throw new Exception("Nie ma rodzaju łózka o podanej nazwie");
+            throw new NoSuchBedException();
         }
         int? bedId = await _repo.GetAvailableBedById(bedDto.From, bedDto.To, bedDto.BedType);
         if (!bedId.HasValue)
